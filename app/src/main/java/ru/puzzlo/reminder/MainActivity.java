@@ -14,6 +14,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager;
+    PreferenceHelper  preferenceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+        PreferenceHelper.getInstance().init(getApplicationContext());
+        preferenceHelper = PreferenceHelper.getInstance();
 
        fragmentManager = getFragmentManager();
 
@@ -30,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu. menu_main, menu);
+        MenuItem splashItem = menu.findItem(R.id.action_splash);
+        splashItem.setChecked(preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE));
         return true;
     }
 
@@ -42,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_splash) {
+            item.setChecked(!item.isChecked());
+            preferenceHelper.putBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE, item.isChecked());;
             return true;
         }
 
@@ -50,11 +58,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void runSplash() {
-        SplashFragment splashFragment = new SplashFragment();
+        if(!preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE)) {
+            SplashFragment splashFragment = new SplashFragment();
 
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, splashFragment)
-                .addToBackStack(null)
-                .commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, splashFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }
