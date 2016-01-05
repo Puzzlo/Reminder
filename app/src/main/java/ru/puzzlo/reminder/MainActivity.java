@@ -19,6 +19,7 @@ import android.support.v4.app.Fragment;
 import ru.puzzlo.reminder.adapter.TabAdapter;
 import ru.puzzlo.reminder.dialog.AddingTaskDialogFragment;
 import ru.puzzlo.reminder.fragment.SplashFragment;
+import ru.puzzlo.reminder.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity
         implements AddingTaskDialogFragment.AddingTaskListener {
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onTaskAdded() {
+    public void onTaskAdded(ModelTask newTask) {
         Toast.makeText(this, "Task added.", Toast.LENGTH_LONG).show();
     }
 
