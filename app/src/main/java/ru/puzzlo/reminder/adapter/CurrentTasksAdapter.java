@@ -11,33 +11,22 @@ import java.util.List;
 
 import ru.puzzlo.reminder.R;
 import ru.puzzlo.reminder.Utils;
+import ru.puzzlo.reminder.fragment.CurrentTaskFragment;
+import ru.puzzlo.reminder.fragment.TaskFragment;
 import ru.puzzlo.reminder.model.Item;
 import ru.puzzlo.reminder.model.ModelTask;
 
 /**
  * Created by Администратор on 05.01.2016.
  */
-public class CurrentTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-    List<Item> items = new ArrayList<>();
+public class CurrentTasksAdapter extends TaskAdapter {
 
     private static final int TYPE_TASK = 0;
     private static final int TYPE_SEPARATOR = 1;
 
-    public Item getItem(int position) {
-      return items.get(position);
-    };
-
-    public void addItem(Item item) {
-        items.add(item);
-        notifyItemInserted(getItemCount() - 1);
-    };
-
-    public void addItem(int location, Item item) {
-        items.add(location, item);
-        notifyItemInserted(location);
-    };
-
+    public CurrentTasksAdapter(CurrentTaskFragment taskFragment) {
+        super(taskFragment);
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -74,11 +63,6 @@ public class CurrentTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
     public int getItemViewType(int position) {
         if(getItem(position).isTask()) {
             return TYPE_TASK;
@@ -87,14 +71,4 @@ public class CurrentTasksAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     };
 
-    private class TaskViewHolder extends  RecyclerView.ViewHolder {
-        TextView title;
-        TextView date;
-
-        public TaskViewHolder(View itemView, TextView title, TextView date) {
-            super(itemView);
-            this.title = title;
-            this.date = date;
-        }
-    }
 }

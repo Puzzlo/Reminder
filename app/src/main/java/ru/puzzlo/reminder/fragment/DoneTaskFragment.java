@@ -16,11 +16,7 @@ import ru.puzzlo.reminder.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DoneTaskFragment extends Fragment {
-
-    RecyclerView rvDoneTask;
-    RecyclerView.LayoutManager layoutManager;
-
+public class DoneTaskFragment extends TaskFragment {
 
     public DoneTaskFragment() {
         // Required empty public constructor
@@ -33,10 +29,10 @@ public class DoneTaskFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_done_task, container, false);
 
-        rvDoneTask = (RecyclerView) rootView.findViewById(R.id.rvDoneTasks);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rvDoneTasks);
 
         layoutManager = new LinearLayoutManager(getActivity());
-        rvDoneTask.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
 
         // Inflate the layout for this fragment
         return rootView;
