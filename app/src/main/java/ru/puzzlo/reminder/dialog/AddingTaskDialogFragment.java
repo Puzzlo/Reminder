@@ -121,6 +121,7 @@ public class AddingTaskDialogFragment extends DialogFragment{
                         etTime.setText(null);
                     }
                 };
+                timePickerFragment.show(getFragmentManager(), "TimePickerFragment");
             }
         });
 
