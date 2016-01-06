@@ -3,7 +3,7 @@ package ru.puzzlo.reminder;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by Администратор on 04.01.2016.
+ * Created by Vitaly on 20.08.2015.
  */
 public class Utils {
 
@@ -18,7 +18,7 @@ public class Utils {
     }
 
     public static String getFullDate(long date) {
-        SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd.MM.yy HH.mm");
+        SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd.MM.yy  HH.mm");
         return fullDateFormat.format(date);
     }
 }

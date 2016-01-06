@@ -1,7 +1,7 @@
 package ru.puzzlo.reminder.model;
 
 /**
- * Created by Администратор on 05.01.2016.
+ * Created by Vitaly on 21.08.2015.
  */
 public interface Item {
 

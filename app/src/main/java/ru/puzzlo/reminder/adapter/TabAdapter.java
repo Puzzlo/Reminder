@@ -1,16 +1,14 @@
 package ru.puzzlo.reminder.adapter;
 
 import android.app.Fragment;
-//import android.support.v4.app.Fragment;
 import android.app.FragmentManager;
-//import android.support.v4.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import ru.puzzlo.reminder.fragment.CurrentTaskFragment;
 import ru.puzzlo.reminder.fragment.DoneTaskFragment;
 
 /**
- * Created by esskov on 09.12.2015.
+ * Created by Vitaly on 18.08.2015.
  */
 public class TabAdapter extends FragmentStatePagerAdapter {
 

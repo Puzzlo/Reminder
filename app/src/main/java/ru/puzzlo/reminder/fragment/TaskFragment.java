@@ -1,25 +1,39 @@
 package ru.puzzlo.reminder.fragment;
 
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-import ru.puzzlo.reminder.adapter.CurrentTasksAdapter;
+import ru.puzzlo.reminder.MainActivity;
+import ru.puzzlo.reminder.adapter.TaskAdapter;
 import ru.puzzlo.reminder.model.ModelTask;
 
 /**
- * Created by Olya on 05.01.2016.
+ * Created by Vitaly on 23.08.2015.
  */
 public abstract class TaskFragment extends Fragment {
     protected RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;
 
-    protected CurrentTasksAdapter adapter;
+    protected TaskAdapter adapter;
 
+    public MainActivity activity;
 
-    public void addTask(ModelTask newTask) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if(getActivity() != null) {
+            activity = (MainActivity) getActivity();
+        }
+
+        addTaskFromDB();
+    }
+
+    public void addTask(ModelTask newTask, boolean saveToDB) {
         int position = -1;
 
-        for(int i = 0; i < adapter.getItemCount(); i++) {
+        for (int i = 0; i < adapter.getItemCount(); i ++) {
             if (adapter.getItem(i).isTask()) {
                 ModelTask task = (ModelTask) adapter.getItem(i);
                 if (newTask.getDate() < task.getDate()) {
@@ -34,6 +48,13 @@ public abstract class TaskFragment extends Fragment {
         } else {
             adapter.addItem(newTask);
         }
+
+        if(saveToDB) {
+            activity.dbHelper.saveTask(newTask);
+        }
     }
 
+    public abstract void addTaskFromDB();
+
+    public abstract void moveTask(ModelTask task);
 }
