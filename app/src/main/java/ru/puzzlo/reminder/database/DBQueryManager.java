@@ -31,7 +31,7 @@ public class DBQueryManager {
             int priority = cursor.getInt(cursor.getColumnIndex(DBHelper.TASK_PRIORITY_COLUMN));
             int status = cursor.getInt(cursor.getColumnIndex(DBHelper.TASK_STATUS_COLUMN));
 
-            modelTask= new ModelTask(title, date, priority, status, timeStamp);
+            modelTask = new ModelTask(title, date, priority, status, timeStamp);
         }
         cursor.close();
 
