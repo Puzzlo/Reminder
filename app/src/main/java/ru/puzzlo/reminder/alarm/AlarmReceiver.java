@@ -1,10 +1,16 @@
-package ru.puzzlo.reminder;
+package ru.puzzlo.reminder.alarm;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+
+import ru.puzzlo.reminder.MainActivity;
+import ru.puzzlo.reminder.MyApplication;
+import ru.puzzlo.reminder.R;
 
 /**
  * Created by andrey on 20.01.2016.
@@ -33,6 +39,16 @@ public class AlarmReceiver extends BroadcastReceiver{
         builder.setContentText(title);
         builder.setColor(context.getResources().getColor(color));
         builder.setSmallIcon(R.drawable.ic_check_white_48dp);
+
+        builder.setDefaults(Notification.DEFAULT_ALL);
+        builder.setContentIntent(pendingIntent);
+
+        Notification notification = builder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify((int) timeStamp, notification);
 
     }
 }

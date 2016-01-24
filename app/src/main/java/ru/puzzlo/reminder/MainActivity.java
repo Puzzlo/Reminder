@@ -15,8 +15,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import ru.puzzlo.reminder.adapter.TabAdapter;
+import ru.puzzlo.reminder.alarm.AlarmHelper;
 import ru.puzzlo.reminder.database.DBHelper;
 import ru.puzzlo.reminder.dialog.AddingTaskDialogFragment;
+import ru.puzzlo.reminder.dialog.EditTaskDialogFragment;
 import ru.puzzlo.reminder.fragment.CurrentTaskFragment;
 import ru.puzzlo.reminder.fragment.DoneTaskFragment;
 import ru.puzzlo.reminder.fragment.SplashFragment;
@@ -25,7 +27,8 @@ import ru.puzzlo.reminder.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity
         implements AddingTaskDialogFragment.AddingTaskListener,
-        CurrentTaskFragment.OnTaskDoneListener, DoneTaskFragment.OnTaskRestoreListener {
+        CurrentTaskFragment.OnTaskDoneListener, DoneTaskFragment.OnTaskRestoreListener,
+        EditTaskDialogFragment.EditingTaskListener {
 
     FragmentManager fragmentManager;
 
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity
 
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
+
+        AlarmHelper.getInstance().init(getApplicationContext());
 
         dbHelper = new DBHelper(getApplicationContext());
 
@@ -192,5 +197,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTaskRestore(ModelTask task) {
         currentTaskFragment.addTask(task, false);
+    }
+
+    @Override
+    public void onTaskEdited(ModelTask updateTask) {
+        currentTaskFragment.updateTask(updateTask);
+        dbHelper.update().task(updateTask);
     }
 }
